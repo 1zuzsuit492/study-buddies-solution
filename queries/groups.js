@@ -18,7 +18,7 @@ const getAllGroupsByActiveStatus = async (activeStatus) => {
   } catch (error) {
     return error;
   }
-};
+}; 
 
 const getGroup = async (id) => {
   try {
@@ -27,12 +27,12 @@ const getGroup = async (id) => {
   } catch (error) {
     return error;
   }
-};
+}; //db.one => only one item being returned
 
 const getGroupByFocus = async (searchParams) => {
   try {
     const foundGroups = await db.any(
-      "SELECT * FROM groups WHERE main_focus ILIKE '%$1:value%' ",
+      "SELECT * FROM groups WHERE main_focus LIKE '%$1:value%' ",
       [searchParams]
     );
 
@@ -46,13 +46,13 @@ const createGroup = async (group) => {
   try {
     const newGroup = await db.one(
       "INSERT INTO groups (name, main_focus, contact_email)  VALUES($1, $2, $3) RETURNING *",
-      [group.name, group.main_focus, group.contact_email]
+      [group.name, group.main_focus, group.contact_email] //this is an arr because the db is an obj arr with keys and values
     );
     return newGroup;
   } catch (error) {
     return error;
   }
-};
+};//numbers present data types/rows in order, then returning *
 
 const updateGroup = async (id, group) => {
   try {

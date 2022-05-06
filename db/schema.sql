@@ -28,14 +28,14 @@ DROP TABLE IF EXISTS events;
 -- remove reviews if bookmark is deleted
 -- rating must be between 0 and 5
 CREATE TABLE events (
-    id SERIAL PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, --accesses the table through that id
     name TEXT NOT NULL,
     virtual_meeting_link TEXT,
     start_time TIMESTAMP WITH TIME ZONE,
     end_time TIMESTAMP WITH TIME ZONE,
     number_of_attendees INTEGER DEFAULT 0,
      study_group_id INTEGER REFERENCES groups(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE --if you're referencing a foreign key (groupid), you can't delete the event you created because it's liknked to the group. so you delete cascade so you can only access the one you want to delete without deleting the table
 );
 
 DROP TABLE IF EXISTS users;
